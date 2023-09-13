@@ -1,5 +1,5 @@
 .venv
-myvenv/
+nn_venv/
 __pycache__/
 misc_files/
 .svg
