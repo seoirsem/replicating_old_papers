@@ -149,6 +149,15 @@ def image_to_tensor(img : np.array):
 def tensor_to_array(tensor):
     return torch.squeeze(tensor).detach().numpy()
 
+def post_process(img : np.array) -> np.array:
+
+    kernel = np.ones((5,5),np.uint8)
+    erosion = cv2.erode(img,kernel,iterations = 1)
+
+
+    return img
+
+
 def main():
     filepath = "C:\\Users\\seoir\\git\\replicating_old_papers\\cell_data"
 
@@ -193,7 +202,7 @@ def main():
 
     #print(model(tr_1))
 
-    iterations = 600
+    iterations = 200
     iter_numbers = []
     losses = []
     losses_eval = []
@@ -231,7 +240,9 @@ def main():
 
     img = image_to_tensor(img)
     cv2.imshow("Full Image", tensor_to_array(model(img)))
+    cv2.imwrite("image_for_process.png", tensor_to_array(model(img)))
     cv2.waitKey(0)
+
 
 
 if __name__ == "__main__":
